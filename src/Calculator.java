@@ -12,7 +12,7 @@ public class Calculator {
     }
 
     public double getCache() {
-        return cache;
+        return this.cache;
     }
 
     public void setCache(double cache) {
@@ -20,15 +20,15 @@ public class Calculator {
     }
 
     public static void showOptionsMenu() {
-        System.out.println("Choose an option:");
-        System.out.println("1. Add");
-        System.out.println("2. Subtract");
-        System.out.println("3. Multiply");
-        System.out.println("4. Divide");
+        System.out.println("| Available options: ");
+        System.out.println("| 1. Add: num + num");
+        System.out.println("| 2. Subtract: num - num");
+        System.out.println("| 3. Multiply: num * num");
+        System.out.println("| 4. Divide: num / num");
     }
 
     @Override
     public String toString() {
-        return (this.name + ":cache= " + this.cache);
+        return (this.name + ". Cache = " + this.cache);
     }
 }
