@@ -27,7 +27,7 @@ public class Main {
             continueMenu();
             System.out.print("Option: ");
             option = sc.nextByte();
-            sc.nextLine(); // limpiar buffer
+            sc.nextLine(); // clear input buffer
 
             switch (option) {
                 case 1:
@@ -53,26 +53,18 @@ public class Main {
             }
 
         } while (option != 5);
-
-// ------
-     /*   continueMenu();
-
-        chooseOption(chooseCalculator(calculators));
-        showCalculators(calculators);*/
-
     }
 
     /**
      * This method is used to choose what operation to perform
      *
      * @param calculator is the calculator object we are going to use
-     * @return TODO y compobar datos que se insertan y try catch
      */
     public static void chooseOption(Calculator calculator) {
         Scanner sc = new Scanner(System.in);
         double num1;
         double num2;
-        double resultado = 0;
+        double result = 0;
         String operator;
         String calculation;
 
@@ -92,21 +84,21 @@ public class Main {
 
         switch (operator) {
             case "+":
-                resultado = num1 + num2;
+                result = num1 + num2;
                 break;
             case "-":
-                resultado = num1 - num2;
+                result = num1 - num2;
                 break;
             case "*":
-                resultado = num1 * num2;
+                result = num1 * num2;
                 break;
             case "/":
-                resultado = num1 / num2;
+                result = num1 / num2;
                 break;
             default:
         }
-        calculator.setCache(resultado);
-        System.out.println(num1 + " " + operator + " " + num2 + " = " + resultado);
+        calculator.setCache(result);
+        System.out.println(num1 + " " + operator + " " + num2 + " = " + result);
 
         System.out.println("Press Enter to continue...");
         sc.nextLine();
