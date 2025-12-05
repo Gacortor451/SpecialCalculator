@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -20,39 +21,67 @@ public class Main {
 
 // TODO pensando si meterlo en un método
 // ------
-        Calculator calculator;
         byte option;
 
-        do {
-            continueMenu();
-            System.out.print("Option: ");
-            option = sc.nextByte();
-            sc.nextLine(); // clear input buffer
+        try {
+            do {
+                continueMenu();
+                System.out.print("Option: ");
+                option = sc.nextByte();
+                sc.nextLine(); // clear input buffer
 
-            switch (option) {
-                case 1:
-                    chooseOption(chooseCalculator(calculators));
-                    break;
-                case 2:
-                    System.out.print("\n");
-                    showCalculators(calculators);
-                    System.out.println("Press Enter to continue...");
-                    sc.nextLine();
-                    break;
-                case 3:
-                    // TODO ficheros
-                    break;
-                case 4:
-                    //TODO lista de tips
-                    break;
-                case 5:
-                    System.out.println("Exiting program...");
-                    break;
-                default:
-                    System.out.println("Invalid option. Please try again.");
-            }
+                switch (option) {
+                    case 1:
+                        chooseCalculate(chooseCalculator(calculators));
+                        break;
+                    case 2:
+                        System.out.print("\n");
+                        showCalculators(calculators);
+                        System.out.println("Press Enter to continue...");
+                        sc.nextLine();
+                        break;
+                    case 3:
+                        noCache(chooseCalculator(calculators));
+                        break;
+                    case 4:
+                        // TODO ficheros
+                        break;
+                    case 5:
+                        tipsList();
+                        break;
+                    case 6:
+                        System.out.println("Exiting program...");
+                        break;
+                    default:
+                        System.out.println("Invalid option. Please try again.");
+                }
+            } while (option != 6);
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid number");
+        }
+    }
 
-        } while (option != 5);
+    /**
+     * This method is used to clear the calculator's value
+     */
+    public static void tipsList() {
+        System.out.println("List of tips");
+        System.out.println("1 - The maximum number of calculators is 3");
+        System.out.println("2 - You must write the calculation in the following format \"1 + 2\".");
+    }
+
+
+    /**
+     * Este método sirve para limpiar el valor de la calculadora
+     *
+     * @param calculator is the calculator object we are going to use
+     */
+    public static void noCache(Calculator calculator) {
+        try {
+            calculator.clearCache();
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -60,7 +89,7 @@ public class Main {
      *
      * @param calculator is the calculator object we are going to use
      */
-    public static void chooseOption(Calculator calculator) {
+    public static void chooseCalculate(Calculator calculator) {
         Scanner sc = new Scanner(System.in);
         double num1;
         double num2;
@@ -69,7 +98,6 @@ public class Main {
         String calculation;
 
         Calculator.showOptionsMenu();
-        System.out.println("TIP: You must write the calculation in the following format \"1 + 2\".");
 
         System.out.print("Calculation: ");
         calculation = sc.nextLine();
@@ -124,9 +152,13 @@ public class Main {
     public static Calculator chooseCalculator(ArrayList<Calculator> calculators) {
         Scanner sc = new Scanner(System.in);
         Calculator userCalculator = null; // Calculator that will be used
-        String option;
-        System.out.print("Type the name of the calculator (e.g. Calculator 1): ");
-        option = sc.nextLine();
+        String option = "";
+
+        while (!option.matches("Calculator [1-3]")) {
+            System.out.print("Type the name of the calculator (e.g. Calculator 1): ");
+            option = sc.nextLine();
+        }
+
         for (Calculator calculator : calculators) {
             if (option.equals(calculator.getName())) {
                 userCalculator = calculator;
@@ -140,39 +172,26 @@ public class Main {
      * This method displays the options to choose from in the main logic
      */
     public static void continueMenu() {
-        System.out.println("Type the corresponding number to choose an option:" +
-                "\n1. Choose calculator and perform the calculation" +
-                "\n2. View calculators" +
-                "\n3. View log file" +
-                "\n4. Tips List" +
-                "\n5. Exit");
+        System.out.println("""
+                Type the corresponding number to choose an option:
+                1. Choose calculator and perform the calculation
+                2. View calculators
+                3. Clear cache
+                4. View log file
+                5. Tips List
+                6. Exit""");
     }
-
-
-
 }
 
 /*TODO
   1- Traducción con Copilot ////HECHO
   2- Try-catch-finally
-  3- Hacer calculadoras por defecto, cada una guarda en caché el resultado anterior, aprovechar el caché para algo
+  3- Añadir javadoc a la clase Calculator y definición simple del main
   5- Usar el caché para algo
   6- Fichero log
   7- Comentarios
-  8- Arreglar return ////HECHO
   9- Readme de funcionamiento
   10- Crear anti errores
-  11- Menú de opciones para elegir calculadoras y salir ////HECHO
-  12- Limpiar cache metodo
   13- Cambiar nombres de métodos, para tener un estándar
-  14- Hacer una lista de tips
-  15- Colores?
   16- Hacer interacciones entre calculadoras (como por ejemplo sumarlas), eso quizás dentro de la clase Calculator
  */
-
-/*
-TIPS (hacer un método y enseñar alguna vez al menos sin ver la lista cada uno)
-"TIP: You must write the calculation in the following format \"1 + 2\"."
-Poner el número máximo de Calculadoras
-
-*/

@@ -4,9 +4,10 @@ public class Calculator {
 
     public Calculator(String nombre) {
         this.name = nombre;
-        cache = 0;
+        this.cache = 0;
     }
 
+    // region getter and setter
     public String getName() {
         return this.name;
     }
@@ -19,12 +20,19 @@ public class Calculator {
         this.cache = cache;
     }
 
+    // endregion
+
     public static void showOptionsMenu() {
-        System.out.println("| Available options: ");
-        System.out.println("| 1. Add: num + num");
-        System.out.println("| 2. Subtract: num - num");
-        System.out.println("| 3. Multiply: num * num");
-        System.out.println("| 4. Divide: num / num");
+        System.out.println("""
+        | Available options:
+        | 1. Add: num + num
+        | 2. Subtract: num - num
+        | 3. Multiply: num * num
+        | 4. Divide: num / num""");
+    }
+
+    public void clearCache() {
+        this.cache = 0;
     }
 
     @Override
